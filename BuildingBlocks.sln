@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nebx.API.BuildingBlocks", "Nebx.API.BuildingBlocks\Nebx.API.BuildingBlocks.csproj", "{152DB63C-A3B0-4B0D-BEE0-BD25ADDF6709}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{152DB63C-A3B0-4B0D-BEE0-BD25ADDF6709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{152DB63C-A3B0-4B0D-BEE0-BD25ADDF6709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{152DB63C-A3B0-4B0D-BEE0-BD25ADDF6709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{152DB63C-A3B0-4B0D-BEE0-BD25ADDF6709}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal

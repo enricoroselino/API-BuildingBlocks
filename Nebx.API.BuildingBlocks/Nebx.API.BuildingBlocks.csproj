@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <OutputType>Library</OutputType>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Title>Nebx.API.BuildingBlocks</Title>
+        <Authors>Enrico Roselino</Authors>
+        <PackageId>Nebx.API.BuildingBlocks</PackageId>
+        <Copyright>Do What The F*ck You Want To Public License</Copyright>
+        <PackageProjectUrl>https://github.com/enricoroselino/BuildingBlocksBoilerplate</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/enricoroselino/BuildingBlocksBoilerplate</RepositoryUrl>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Ardalis.Result.AspNetCore" Version="10.1.0" />
+        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+        <PackageReference Include="Carter" Version="9.0.0" />
+        <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+        <PackageReference Include="MediatR" Version="12.4.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+        <PackageReference Include="Microsoft.Extensions.ApiDescription.Server" Version="9.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Quartz.AspNetCore" Version="3.13.1"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+        <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="7.1.0" />
+        <PackageReference Include="System.Text.Encodings.Web" Version="9.0.0" />
+        <PackageReference Include="UUIDNext" Version="3.0.0" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Application\" />
+      <Folder Include="Contract\" />
+      <Folder Include="Shared\" />
+    </ItemGroup>
+
+</Project>
