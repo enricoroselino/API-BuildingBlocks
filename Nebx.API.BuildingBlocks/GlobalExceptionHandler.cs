@@ -6,7 +6,7 @@ using Nebx.API.BuildingBlocks.Shared.Exceptions;
 
 namespace Nebx.API.BuildingBlocks;
 
-public sealed class GlobalExceptionHandler : IExceptionHandler
+internal sealed class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly ILogger<GlobalExceptionHandler> _logger;
     private readonly TimeProvider _timeProvider;

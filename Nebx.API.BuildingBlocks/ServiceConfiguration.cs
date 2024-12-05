@@ -1,38 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Nebx.API.BuildingBlocks.Configurations;
 using Nebx.API.BuildingBlocks.Configurations.Interceptors;
+using Nebx.API.BuildingBlocks.Configurations.PreConfigured;
 using Nebx.API.BuildingBlocks.Services.GuidProvider;
 
 namespace Nebx.API.BuildingBlocks;
 
 public static class ServiceConfiguration
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddBuildingBlocksService(this IServiceCollection services)
     {
-        services
-            .AddCors()
-            .AddProblemDetails()
-            .AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddCors();
+        services.AddProblemDetails();
+        services.AddExceptionHandler<GlobalExceptionHandler>();
 
-        services
-            .AddLoggingConfiguration()
-            .AddQuartzConfiguration()
-            .AddSwaggerDocumentation();
-
-        services
-            .AddAuthenticationConfiguration()
-            .AddAuthorization();
+        services.AddLoggingConfiguration();
+        services.AddQuartzConfiguration();
+        services.AddSwaggerDocumentation();
 
         services.AddSingleton<TimeProvider>(TimeProvider.System);
 
-        services
-            .AddScoped<ISaveChangesInterceptor, TimeAuditEntityInterceptor>()
-            .AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, TimeAuditEntityInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
-        services
-            .AddScoped<IGuidProvider, GuidProvider>()
-            .AddScoped<IGuidProvider, MssqlGuidProvider>()
-            .AddScoped<IGuidProviderFactory, GuidProviderFactory>();
+        services.AddScoped<IGuidProvider, GuidProvider>();
+        services.AddScoped<IGuidProvider, MssqlGuidProvider>();
+        services.AddScoped<IGuidProviderFactory, GuidProviderFactory>();
 
         return services;
     }

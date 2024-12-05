@@ -1,10 +1,11 @@
-﻿using Nebx.API.BuildingBlocks.Services.TokenProvider;
+﻿using Microsoft.AspNetCore.Builder;
+using Nebx.API.BuildingBlocks.Services.TokenProvider;
 
 namespace Nebx.API.BuildingBlocks.Configurations;
 
-internal static class AuthenticationConfiguration
+public static class AuthenticationConfiguration
 {
-    public static IServiceCollection AddAuthenticationConfiguration(this IServiceCollection services)
+    public static IServiceCollection AddJwtConfiguration(this IServiceCollection services)
     {
         services
             .AddOptions<TokenProviderOptions>()
@@ -28,6 +29,13 @@ internal static class AuthenticationConfiguration
                 options.TokenValidationParameters = tokenProvider.TokenValidationParameters;
             });
 
+        services.AddAuthorization();
         return services;
+    }
+
+    public static IApplicationBuilder UseAuthConfiguration(this IApplicationBuilder app)
+    {
+        app.UseAuthentication().UseAuthorization();
+        return app;
     }
 }

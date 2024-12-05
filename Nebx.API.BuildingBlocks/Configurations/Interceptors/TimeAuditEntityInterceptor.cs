@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Nebx.API.BuildingBlocks.Extensions;
+using Nebx.API.BuildingBlocks.Extensions.Database;
 using Nebx.API.BuildingBlocks.Shared.Contracts.DDD;
 
 namespace Nebx.API.BuildingBlocks.Configurations.Interceptors;

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Nebx.API.BuildingBlocks.Configurations;
+namespace Nebx.API.BuildingBlocks.Configurations.PreConfigured;
 
 internal sealed class SwaggerVersioningOptions : IConfigureOptions<SwaggerGenOptions>
 {

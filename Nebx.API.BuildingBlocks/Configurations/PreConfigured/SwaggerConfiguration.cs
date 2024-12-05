@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace Nebx.API.BuildingBlocks.Configurations;
+namespace Nebx.API.BuildingBlocks.Configurations.PreConfigured;
 
 internal static class SwaggerConfiguration
 {
     public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
     {
         services.AddEndpointsApiExplorer();
+        
+        // TODO: client might use another type of authentication method
         services.AddSwaggerAuthentication();
 
         //services.ConfigureOptions<SwaggerVersioningOptions>();
@@ -18,8 +19,6 @@ internal static class SwaggerConfiguration
 
     public static WebApplication UseSwaggerDocumentation(this WebApplication app)
     {
-        if (!app.Environment.IsDevelopment()) return app;
-
         app.UseSwagger();
         app.UseSwaggerUI();
 
