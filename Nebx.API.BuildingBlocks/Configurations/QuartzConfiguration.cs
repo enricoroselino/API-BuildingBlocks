@@ -1,6 +1,6 @@
 ﻿using Quartz;
 
-namespace Nebx.API.BuildingBlocks.Configurations.PreConfigured;
+namespace Nebx.API.BuildingBlocks.Configurations;
 
 internal static class QuartzConfiguration
 {

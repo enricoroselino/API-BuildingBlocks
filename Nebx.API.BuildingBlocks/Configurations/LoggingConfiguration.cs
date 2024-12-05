@@ -2,7 +2,7 @@
 using Serilog.Events;
 using Serilog.Filters;
 
-namespace Nebx.API.BuildingBlocks.Configurations.PreConfigured;
+namespace Nebx.API.BuildingBlocks.Configurations;
 
 internal static class LoggingConfiguration
 {

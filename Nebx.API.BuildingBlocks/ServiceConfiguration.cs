@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Nebx.API.BuildingBlocks.Configurations;
 using Nebx.API.BuildingBlocks.Configurations.Interceptors;
-using Nebx.API.BuildingBlocks.Configurations.PreConfigured;
 using Nebx.API.BuildingBlocks.Services.GuidProvider;
 
 namespace Nebx.API.BuildingBlocks;
@@ -16,7 +15,6 @@ public static class ServiceConfiguration
 
         services.AddLoggingConfiguration();
         services.AddQuartzConfiguration();
-        services.AddSwaggerDocumentation();
 
         services.AddSingleton<TimeProvider>(TimeProvider.System);
 
