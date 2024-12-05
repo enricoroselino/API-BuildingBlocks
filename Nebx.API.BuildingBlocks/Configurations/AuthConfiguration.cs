@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Nebx.API.BuildingBlocks.Services.TokenProvider;
+﻿using Nebx.API.BuildingBlocks.Services.TokenProvider;
 
 namespace Nebx.API.BuildingBlocks.Configurations;
 

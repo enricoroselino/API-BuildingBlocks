@@ -1,22 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
-using Nebx.API.BuildingBlocks.Extensions;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Nebx.API.BuildingBlocks.Extensions.Database;
 using Nebx.API.BuildingBlocks.Shared.Contracts.DDD;
 
 namespace Nebx.API.BuildingBlocks.Configurations.Interceptors;
 
-internal sealed class TimeAuditEntityInterceptor : SaveChangesInterceptor
+internal sealed class AuditableEntityInterceptor : SaveChangesInterceptor
 {
     private readonly TimeProvider _timeProvider;
 
-    public TimeAuditEntityInterceptor(TimeProvider timeProvider)
+    public AuditableEntityInterceptor(TimeProvider timeProvider)
     {
         _timeProvider = timeProvider;
     }
 
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
-        UpdateAuditableProperties(eventData.Context);
+        if (eventData.Context is null) return base.SavingChanges(eventData, result);
+        var entries = LoadEntityEntries(eventData.Context);
+
+        UpdateTimeAuditProperties(entries);
         return base.SavingChanges(eventData, result);
     }
 
@@ -24,19 +27,25 @@ internal sealed class TimeAuditEntityInterceptor : SaveChangesInterceptor
         InterceptionResult<int> result,
         CancellationToken cancellationToken = new CancellationToken())
     {
-        UpdateAuditableProperties(eventData.Context);
+        if (eventData.Context is null) return base.SavingChangesAsync(eventData, result, cancellationToken);
+        var entries = LoadEntityEntries(eventData.Context);
+
+        UpdateTimeAuditProperties(entries);
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    private void UpdateAuditableProperties(DbContext? context)
+    private static List<EntityEntry<IEntity>> LoadEntityEntries(DbContext context)
     {
-        if (context is null) return;
-
         var entities = context.ChangeTracker
             .Entries<IEntity>()
             .ToList();
 
-        entities.ForEach(x =>
+        return entities;
+    }
+
+    private void UpdateTimeAuditProperties(List<EntityEntry<IEntity>> entries)
+    {
+        entries.ForEach(x =>
         {
             var actionTime = _timeProvider.GetLocalNow().DateTime;
 

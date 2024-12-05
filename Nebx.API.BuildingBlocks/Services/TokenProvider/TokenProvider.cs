@@ -25,6 +25,7 @@ public sealed class TokenProvider : ITokenProvider
         var saltedKey = CryptoHelper.DerivationKey(tokenSettings.Value.Key, tokenSettings.Value.Salt, 32);
         var symmetricKey = new SymmetricSecurityKey(saltedKey);
         _signingCredentials = new SigningCredentials(symmetricKey, Algorithms);
+
         TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,

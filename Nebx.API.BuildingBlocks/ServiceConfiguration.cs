@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Nebx.API.BuildingBlocks.Configurations;
 using Nebx.API.BuildingBlocks.Configurations.Interceptors;
-using Nebx.API.BuildingBlocks.Services.GuidProvider;
 
 namespace Nebx.API.BuildingBlocks;
 
 public static class ServiceConfiguration
 {
-    public static IServiceCollection AddBuildingBlocksService(this IServiceCollection services)
+    public static IServiceCollection AddBuildingBlocksServices(this IServiceCollection services)
     {
         services.AddCors();
         services.AddProblemDetails();
@@ -18,12 +17,8 @@ public static class ServiceConfiguration
 
         services.AddSingleton<TimeProvider>(TimeProvider.System);
 
-        services.AddScoped<ISaveChangesInterceptor, TimeAuditEntityInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
-
-        services.AddScoped<IGuidProvider, GuidProvider>();
-        services.AddScoped<IGuidProvider, MssqlGuidProvider>();
-        services.AddScoped<IGuidProviderFactory, GuidProviderFactory>();
 
         return services;
     }
