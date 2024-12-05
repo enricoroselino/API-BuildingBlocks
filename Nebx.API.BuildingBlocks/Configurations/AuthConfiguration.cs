@@ -32,10 +32,4 @@ public static class AuthenticationConfiguration
         services.AddAuthorization();
         return services;
     }
-
-    public static IApplicationBuilder UseAuthConfiguration(this IApplicationBuilder app)
-    {
-        app.UseAuthentication().UseAuthorization();
-        return app;
-    }
 }
