@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace Nebx.API.BuildingBlocks.Shared.Contracts.DDD;
+﻿namespace Nebx.API.BuildingBlocks.Shared.Contracts.DDD;
 
 public interface IDomainEvent : INotification
 {

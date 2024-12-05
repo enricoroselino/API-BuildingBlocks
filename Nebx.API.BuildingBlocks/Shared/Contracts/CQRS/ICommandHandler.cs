@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace Nebx.API.BuildingBlocks.Shared.Contracts.CQRS;
+﻿namespace Nebx.API.BuildingBlocks.Shared.Contracts.CQRS;
 
 public interface ICommandHandler<in TCommand, TResponse>
     : IRequestHandler<TCommand, TResponse>
