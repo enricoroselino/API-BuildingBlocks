@@ -17,7 +17,7 @@ internal sealed class AuditableEntityInterceptor : SaveChangesInterceptor
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
         if (eventData.Context is null) return base.SavingChanges(eventData, result);
-        var entries = LoadEntityEntries(eventData.Context);
+        var entries = LoadAuditEntityEntries(eventData.Context);
 
         UpdateTimeAuditProperties(entries);
         return base.SavingChanges(eventData, result);
@@ -28,13 +28,13 @@ internal sealed class AuditableEntityInterceptor : SaveChangesInterceptor
         CancellationToken cancellationToken = new CancellationToken())
     {
         if (eventData.Context is null) return base.SavingChangesAsync(eventData, result, cancellationToken);
-        var entries = LoadEntityEntries(eventData.Context);
+        var entries = LoadAuditEntityEntries(eventData.Context);
 
         UpdateTimeAuditProperties(entries);
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    private static List<EntityEntry<IEntity>> LoadEntityEntries(DbContext context)
+    private static List<EntityEntry<IEntity>> LoadAuditEntityEntries(DbContext context)
     {
         var entities = context.ChangeTracker
             .Entries<IEntity>()
