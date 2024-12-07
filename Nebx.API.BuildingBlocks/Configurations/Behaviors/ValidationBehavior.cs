@@ -3,17 +3,23 @@ using Nebx.API.BuildingBlocks.Shared.Contracts.CQRS;
 
 namespace Nebx.API.BuildingBlocks.Configurations.Behaviors;
 
-internal sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
-    : IPipelineBehavior<TRequest, TResponse>
+public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>
 {
+    private readonly IEnumerable<IValidator<TRequest>> _validators;
+
+    public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
+    {
+        _validators = validators;
+    }
+
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        if (!validators.Any()) return await next();
+        if (!_validators.Any()) return await next();
         var context = new ValidationContext<TRequest>(request);
 
-        var failures = await Validate(validators, context, cancellationToken);
+        var failures = await Validate(_validators, context, cancellationToken);
         if (failures.Count > 0) throw new ValidationException(failures);
         return await next();
     }

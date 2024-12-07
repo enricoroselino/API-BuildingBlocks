@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-
-namespace Nebx.API.BuildingBlocks.Extensions.Database;
+﻿namespace Nebx.API.BuildingBlocks.Extensions.Database;
 
 public static class EntityExtensions
 {

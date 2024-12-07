@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Nebx.API.BuildingBlocks.Shared.Helpers;
+﻿namespace Nebx.API.BuildingBlocks.Shared.Helpers;
 
 public static class AssembliesHelper
 {

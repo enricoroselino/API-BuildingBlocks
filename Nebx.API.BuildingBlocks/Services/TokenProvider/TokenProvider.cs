@@ -13,16 +13,16 @@ public sealed class TokenProvider : ITokenProvider
     public string Scheme => JwtBearerDefaults.AuthenticationScheme;
     public TokenValidationParameters TokenValidationParameters { get; init; }
     private static string Algorithms => SecurityAlgorithms.HmacSha256Signature;
-    private readonly IOptions<TokenProviderOptions> _tokenSettings;
+    private readonly IOptions<TokenProviderOptions> _tokenOptions;
     private readonly JwtSecurityTokenHandler _tokenHandler;
     private readonly SigningCredentials _signingCredentials;
 
-    public TokenProvider(IOptions<TokenProviderOptions> tokenSettings)
+    public TokenProvider(IOptions<TokenProviderOptions> tokenOptions)
     {
-        _tokenSettings = tokenSettings;
+        _tokenOptions = tokenOptions;
         _tokenHandler = new JwtSecurityTokenHandler();
 
-        var saltedKey = CryptoHelper.DerivationKey(tokenSettings.Value.Key, tokenSettings.Value.Salt, 32);
+        var saltedKey = CryptoHelper.DerivationKey(tokenOptions.Value.Key, tokenOptions.Value.Salt, 32);
         var symmetricKey = new SymmetricSecurityKey(saltedKey);
         _signingCredentials = new SigningCredentials(symmetricKey, Algorithms);
 
@@ -32,8 +32,8 @@ public sealed class TokenProvider : ITokenProvider
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = tokenSettings.Value.ValidIssuer,
-            ValidAudience = tokenSettings.Value.ValidAudience,
+            ValidIssuer = tokenOptions.Value.ValidIssuer,
+            ValidAudience = tokenOptions.Value.ValidAudience,
             IssuerSigningKey = symmetricKey,
             ClockSkew = TimeSpan.Zero,
         };
@@ -41,11 +41,11 @@ public sealed class TokenProvider : ITokenProvider
 
     public string GenerateAccessToken(IEnumerable<Claim> claims)
     {
-        var expiration = DateTime.UtcNow.Add(_tokenSettings.Value.ValidSpan);
+        var expiration = DateTime.UtcNow.Add(_tokenOptions.Value.ValidSpan);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Issuer = _tokenSettings.Value.ValidIssuer,
-            Audience = _tokenSettings.Value.ValidAudience,
+            Issuer = _tokenOptions.Value.ValidIssuer,
+            Audience = _tokenOptions.Value.ValidAudience,
             SigningCredentials = _signingCredentials,
             Subject = new ClaimsIdentity(claims),
             TokenType = "JWT",
@@ -55,7 +55,7 @@ public sealed class TokenProvider : ITokenProvider
         var token = _tokenHandler.CreateToken(tokenDescriptor);
         var accessToken = _tokenHandler.WriteToken(token);
 
-        ArgumentException.ThrowIfNullOrWhiteSpace(accessToken);
+        ArgumentException.ThrowIfNullOrWhiteSpace(accessToken, nameof(accessToken));
         return accessToken;
     }
 

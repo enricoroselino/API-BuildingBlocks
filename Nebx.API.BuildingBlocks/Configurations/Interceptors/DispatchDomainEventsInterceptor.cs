@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
-using Nebx.API.BuildingBlocks.Shared.Contracts.DDD;
+﻿using Nebx.API.BuildingBlocks.Shared.Contracts.DDD;
 
 namespace Nebx.API.BuildingBlocks.Configurations.Interceptors;
 
-internal sealed class DispatchDomainEventsInterceptor : SaveChangesInterceptor
+public sealed class DispatchDomainEventsInterceptor : SaveChangesInterceptor
 {
     private readonly IMediator _mediator;
 

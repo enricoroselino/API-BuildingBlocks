@@ -2,11 +2,11 @@
 using Serilog.Events;
 using Serilog.Filters;
 
-namespace Nebx.API.BuildingBlocks.Configurations;
+namespace Nebx.API.BuildingBlocks.Configurations.Builders;
 
-internal static class LoggingConfiguration
+public static class LoggingConfigurationBuilder
 {
-    public static IServiceCollection AddLoggingConfiguration(this IServiceCollection services)
+    public static LoggerConfiguration Create()
     {
         var loggerConfiguration = new LoggerConfiguration();
 
@@ -24,8 +24,6 @@ internal static class LoggingConfiguration
             .Filter.ByExcluding(Matching.FromSource("Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware"));
 
         loggerConfiguration.WriteTo.Console();
-        Log.Logger = loggerConfiguration.CreateLogger();
-        services.AddSerilog(Log.Logger);
-        return services;
+        return loggerConfiguration;
     }
 }

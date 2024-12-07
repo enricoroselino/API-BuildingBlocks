@@ -1,8 +1,6 @@
-﻿using Carter;
-using Microsoft.AspNetCore.Builder;
-using Nebx.API.BuildingBlocks.Configurations;
+﻿using Microsoft.AspNetCore.Builder;
 
-namespace Nebx.API.BuildingBlocks;
+namespace Nebx.API.BuildingBlocks.PreConfigured;
 
 public static class MiddlewareConfiguration
 {

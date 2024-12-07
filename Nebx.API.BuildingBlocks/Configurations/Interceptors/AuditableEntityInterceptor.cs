@@ -1,11 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Nebx.API.BuildingBlocks.Extensions.Database;
+﻿using Nebx.API.BuildingBlocks.Extensions.Database;
 using Nebx.API.BuildingBlocks.Shared.Contracts.DDD;
 
 namespace Nebx.API.BuildingBlocks.Configurations.Interceptors;
 
-internal sealed class AuditableEntityInterceptor : SaveChangesInterceptor
+public sealed class AuditableEntityInterceptor : SaveChangesInterceptor
 {
     private readonly TimeProvider _timeProvider;
 

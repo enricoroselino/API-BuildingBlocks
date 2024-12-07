@@ -2,7 +2,7 @@
 
 namespace Nebx.API.BuildingBlocks.Configurations;
 
-internal static class QuartzConfiguration
+public static class QuartzConfiguration
 {
     public static IServiceCollection AddQuartzConfiguration(this IServiceCollection services)
     {

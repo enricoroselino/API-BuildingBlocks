@@ -1,29 +1,15 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Nebx.API.BuildingBlocks.Shared.Exceptions;
 
-namespace Nebx.API.BuildingBlocks;
+namespace Nebx.API.BuildingBlocks.Configurations.ExceptionHandlers;
 
-internal sealed class GlobalExceptionHandler : IExceptionHandler
+public sealed class GlobalExceptionHandler : IExceptionHandler
 {
-    private readonly ILogger<GlobalExceptionHandler> _logger;
-    private readonly TimeProvider _timeProvider;
-
-    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger, TimeProvider timeProvider)
-    {
-        _logger = logger;
-        _timeProvider = timeProvider;
-    }
-
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception,
         CancellationToken cancellationToken)
     {
-        _logger.LogError(
-            "[ERR] Message: {@ExceptionMessage}, Time of occurrence {@Time}",
-            exception.Message, _timeProvider.GetLocalNow());
-
         (string Type, string Title, string Detail, int StatusCode) details = exception switch
         {
             InternalServerException =>
